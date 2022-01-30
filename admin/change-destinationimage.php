@@ -7,29 +7,21 @@ if(strlen($_SESSION['alogin'])==0)
 header('location:index.php');
 }
 else{
+	$imgid=intval($_GET['imgid']);
 if(isset($_POST['submit']))
 {
-$pname=$_POST['destinationname'];
-$pplace=$_POST['destinationplaces'];	
-$pdes=$_POST['destinationdes'];
+
 $pimage=$_FILES["destinationimage"]["name"];
-move_uploaded_file($_FILES["destinationimage"]["tmp_name"],"destinationimage/".$_FILES["destinationimage"]["name"]);
-$sql="INSERT INTO destination(title,places,img,destdes) VALUES(:pname,:pplace,:pdes,:pimage)";
+move_uploaded_file($_FILES["destinationimage"]["tmp_name"],"destintionimages/".$_FILES["destinationimage"]["name"]);
+$sql="update tbldestination set DestinationImage=:pimage where DestinationId=:imgid";
 $query = $dbh->prepare($sql);
-$query->bindParam(':pname',$pname,PDO::PARAM_STR);
-$query->bindParam(':pplaces',$pplace,PDO::PARAM_STR);
-$query->bindParam(':pdes',$pdes,PDO::PARAM_STR);
+
+$query->bindParam(':imgid',$imgid,PDO::PARAM_STR);
 $query->bindParam(':pimage',$pimage,PDO::PARAM_STR);
 $query->execute();
-$lastInsertId = $dbh->lastInsertId();
-if($lastInsertId)
-{
-$msg="Destination Created Successfully";
-}
-else 
-{
-$error="Something went wrong. Please try again";
-}
+$msg="Image Updated Successfully";
+
+
 
 }
 
@@ -37,7 +29,7 @@ $error="Something went wrong. Please try again";
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Citylight Travels | Admin Destination Creation</title>
+<title>Citylight Travels | Admin Destination Update</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Pooled Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -83,54 +75,56 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 <!--heder end here-->
 	<ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.php">Home</a><i class="fa fa-angle-right"></i>Update Destination</li>
+                <li class="breadcrumb-item"><a href="index.html">Home</a><i class="fa fa-angle-right"></i>Update Destination Image </li>
             </ol>
 		<!--grid-->
  	<div class="grid-form">
  
 <!---->
   <div class="grid-form1">
-  	       <h3>Create Destination</h3>
+  	       <h3>Update Destination Image </h3>
   	        	  <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
 				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
   	         <div class="tab-content">
 						<div class="tab-pane active" id="horizontal-form">
 							<form class="form-horizontal" name="destination" method="post" enctype="multipart/form-data">
-								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Destination Name</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control1" name="destinationname" id="destinationname" placeholder="Create Package" required>
-									</div>
-								</div>
+						<?php 
+$imgid=intval($_GET['imgid']);
+$sql = "SELECT DestinationImage from tbldestination where DestinationId=:imgid";
+$query = $dbh -> prepare($sql);
+$query -> bindParam(':imgid', $imgid, PDO::PARAM_STR);
+$query->execute();
+$results=$query->fetchAll(PDO::FETCH_OBJ);
+$cnt=1;
+if($query->rowCount() > 0)
+{
+foreach($results as $result)
+{	?>	
 <div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Destination places</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control1" name="destinationplaces" id="destinationplaces" placeholder=" Package Type eg- Family Package / Couple Package" required>
-									</div>
-								</div>
-
+<label for="focusedinput" class="col-sm-2 control-label"> Destination Image  </label>
+<div class="col-sm-8">
+<img src="destintionimages/<?php echo htmlentities($result->DestinationImage);?>" width="200">
+</div>
+</div>
+																					
 <div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Destination description</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control1" name="destinationdes" id="destinationdes" placeholder=" Package Location" required>
-									</div>
-								</div>
-														
-<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Destination Image</label>
+									<label for="focusedinput" class="col-sm-2 control-label">New Image</label>
 									<div class="col-sm-8">
 										<input type="file" name="destinationimage" id="destinationimage" required>
 									</div>
 								</div>	
+								<?php }} ?>
 
 								<div class="row">
 			<div class="col-sm-8 col-sm-offset-2">
-				<button type="submit" name="submit" class="btn-primary btn">Create</button>
+				<button type="submit" name="submit" class="btn-primary btn">Update</button>
 
-				<button type="reset" class="btn-inverse btn">Reset</button>
 			</div>
 		</div>
-							
+						
+					
+						
+						
 						
 					</div>
 					

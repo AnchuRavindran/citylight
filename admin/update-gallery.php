@@ -7,34 +7,24 @@ if(strlen($_SESSION['alogin'])==0)
 header('location:index.php');
 }
 else{
-$pid=intval($_GET['pid']);	
+$gid=intval($_GET['gid']);	
 if(isset($_POST['submit']))
 {
-$pname=$_POST['packagename'];
-$ptype=$_POST['packagetype'];	
-$plocation=$_POST['packagelocation'];
-$pprice=$_POST['packageprice'];	
-$pfeatures=$_POST['packagefeatures'];
-$pdetails=$_POST['packagedetails'];	
-$pimage=$_FILES["packageimage"]["name"];
-$sql="update tblTourPackages set PackageName=:pname,PackageType=:ptype,PackageLocation=:plocation,PackagePrice=:pprice,PackageFetures=:pfeatures,PackageDetails=:pdetails where PackageId=:pid";
+$pname=$_POST['galleryname'];
+$pimage=$_FILES["galleryimage"]["name"];
+$sql="update tblgallery set GalleryName=:pname where GalleryId=:gid";
 $query = $dbh->prepare($sql);
 $query->bindParam(':pname',$pname,PDO::PARAM_STR);
-$query->bindParam(':ptype',$ptype,PDO::PARAM_STR);
-$query->bindParam(':plocation',$plocation,PDO::PARAM_STR);
-$query->bindParam(':pprice',$pprice,PDO::PARAM_STR);
-$query->bindParam(':pfeatures',$pfeatures,PDO::PARAM_STR);
-$query->bindParam(':pdetails',$pdetails,PDO::PARAM_STR);
-$query->bindParam(':pid',$pid,PDO::PARAM_STR);
+$query->bindParam(':gid',$gid,PDO::PARAM_STR);
 $query->execute();
-$msg="Package Updated Successfully";
+$msg="Gallery Updated Successfully";
 }
 
 	?>
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>TMS | Admin Package Creation</title>
+<title>CityLight Travels| Admin Gallery Updation</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Pooled Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -80,24 +70,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 <!--heder end here-->
 	<ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a><i class="fa fa-angle-right"></i>Update Tour Package </li>
+                <li class="breadcrumb-item"><a href="index.html">Home</a><i class="fa fa-angle-right"></i>Update Gallery </li>
             </ol>
 		<!--grid-->
  	<div class="grid-form">
  
 <!---->
   <div class="grid-form1">
-  	       <h3>Update Package</h3>
+  	       <h3>Update Gallery</h3>
   	        	  <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
 				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
   	         <div class="tab-content">
 						<div class="tab-pane active" id="horizontal-form">
 						
 <?php 
-$pid=intval($_GET['pid']);
-$sql = "SELECT * from TblTourPackages where PackageId=:pid";
+$gid=intval($_GET['gid']);
+$sql = "SELECT * from tblgallery where GalleryId=:gid";
 $query = $dbh -> prepare($sql);
-$query -> bindParam(':pid', $pid, PDO::PARAM_STR);
+$query -> bindParam(':gid', $gid, PDO::PARAM_STR);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
 $cnt=1;
@@ -106,61 +96,24 @@ if($query->rowCount() > 0)
 foreach($results as $result)
 {	?>
 
-							<form class="form-horizontal" name="package" method="post" enctype="multipart/form-data">
+							<form class="form-horizontal" name="gallery" method="post" enctype="multipart/form-data">
 								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Package Name</label>
+									<label for="focusedinput" class="col-sm-2 control-label">Gallery Name</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control1" name="packagename" id="packagename" placeholder="Create Package" value="<?php echo htmlentities($result->PackageName);?>" required>
-									</div>
-								</div>
-<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Package Type</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control1" name="packagetype" id="packagetype" placeholder=" Package Type eg- Family Package / Couple Package" value="<?php echo htmlentities($result->PackageType);?>" required>
+										<input type="text" class="form-control1" name="galleryname" id="galleryname" placeholder="Gallery name" value="<?php echo htmlentities($result->GalleryName);?>" required>
 									</div>
 								</div>
 
-<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Package Location</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control1" name="packagelocation" id="packagelocation" placeholder=" Package Location" value="<?php echo htmlentities($result->PackageLocation);?>" required>
-									</div>
-								</div>
-
-<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Package Price in USD</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control1" name="packageprice" id="packageprice" placeholder=" Package Price is USD" value="<?php echo htmlentities($result->PackagePrice);?>" required>
-									</div>
-								</div>
-
-<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Package Features</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control1" name="packagefeatures" id="packagefeatures" placeholder="Package Features Eg-free Pickup-drop facility" value="<?php echo htmlentities($result->PackageFetures);?>" required>
-									</div>
-								</div>		
 
 
-<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Package Details</label>
-									<div class="col-sm-8">
-										<textarea class="form-control" rows="5" cols="50" name="packagedetails" id="packagedetails" placeholder="Package Details" required><?php echo htmlentities($result->PackageDetails);?></textarea> 
-									</div>
-								</div>															
-<div class="form-group">
-<label for="focusedinput" class="col-sm-2 control-label">Package Image</label>
+								<div class="form-group">
+<label for="focusedinput" class="col-sm-2 control-label">Gallery Image</label>
 <div class="col-sm-8">
-<img src="pacakgeimages/<?php echo htmlentities($result->PackageImage);?>" width="200">&nbsp;&nbsp;&nbsp;<a href="change-packageimage.php?imgid=<?php echo htmlentities($result->PackageId);?>">Change Image</a>
+<img src="galleryimages/<?php echo htmlentities($result->GalleryImage);?>" width="200">&nbsp;&nbsp;&nbsp;<a href="change-galleryimage.php?imgid=<?php echo htmlentities($result->GalleryId);?>">Change Image</a>
 </div>
 </div>
 
-<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Last Updation Date</label>
-									<div class="col-sm-8">
-<?php echo htmlentities($result->UpdationDate);?>
-									</div>
-								</div>		
+		
 								<?php }} ?>
 
 								<div class="row">

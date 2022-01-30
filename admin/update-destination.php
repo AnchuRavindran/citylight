@@ -14,7 +14,7 @@ $pname=$_POST['destinationname'];
 $pplace=$_POST['destinationplaces'];	
 $pdes=$_POST['destinationdes'];
 $pimage=$_FILES["destinationimage"]["name"];
-$sql="update tbldestination set DestinationName=:pname,Destinationplaces=:pplace,DestinationDes=:pdes where DestinationId=:did";
+$sql="update tbldestination set DestinationName=:pname,DestinationPlaces=:pplace,DestinationDes=:pdes where DestinationId=:did";
 $query = $dbh->prepare($sql);
 $query->bindParam(':pname',$pname,PDO::PARAM_STR);
 $query->bindParam(':pplace',$pplace,PDO::PARAM_STR);
@@ -110,9 +110,11 @@ foreach($results as $result)
 <div class="form-group">
 									<label for="focusedinput" class="col-sm-2 control-label">Destination Places</label>
 									<div class="col-sm-8">
-										<input type="number" class="form-control1" name="destinationplaces" id="destinationplaces" placeholder=" Number Of Places" value="<?php echo htmlentities($result->Destinationplaces);?>" required>
+										<input type="text" class="form-control1" name="destinationplaces" id="destinationplaces" placeholder=" Number Of Places" value="<?php echo htmlentities($result->DestinationPlaces);?>" required>
 									</div>
 								</div>
+
+								
 
 <div class="form-group">
 									<label for="focusedinput" class="col-sm-2 control-label">Destination Description</label>
@@ -125,7 +127,7 @@ foreach($results as $result)
 								<div class="form-group">
 <label for="focusedinput" class="col-sm-2 control-label">Destination Image</label>
 <div class="col-sm-8">
-<img src="destintionimages/<?php echo htmlentities($result->DestinationImage);?>" width="200">&nbsp;&nbsp;&nbsp;<a href="change.php?imgid=<?php echo htmlentities($result->DestinationId);?>">Change Image</a>
+<img src="destintionimages/<?php echo htmlentities($result->DestinationImage);?>" width="200">&nbsp;&nbsp;&nbsp;<a href="change-destinationimage.php?imgid=<?php echo htmlentities($result->DestinationId);?>">Change Image</a>
 </div>
 </div>
 

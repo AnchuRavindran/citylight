@@ -47,7 +47,7 @@ include('includes/config.php');
     <section>
       <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
-            <a href="./index.html" class="logo navbar-brand" id="nava" ><img  id="navlogo" src="./assets/img/logo.png" alt="Logo"></a>
+            <a href="./index.php" class="logo navbar-brand" id="nava" ><img  id="navlogo" src="./assets/img/logo.png" alt="Logo"></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
           </button>
@@ -56,11 +56,11 @@ include('includes/config.php');
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active"><a href="./index.php" class="nav-link">Home</a></li>
               <li class="nav-item"><a href="./about.php" class="nav-link">About</a></li>
-               <li class="nav-item"><a href="./services.html" class="nav-link">Services</a></li>
-              <li class="nav-item"><a href="./tour.html" class="nav-link">Tour Packages</a></li>
-              <li class="nav-item"><a href="./gallery.html" class="nav-link">Gallery</a></li>
-              <li class="nav-item"><a href="./bus.html" class="nav-link">Bus</a></li>
-              <li class="nav-item"><a href="./contact.html" class="nav-link">Contact</a></li>
+               <li class="nav-item"><a href="./services.php" class="nav-link">Services</a></li>
+              <li class="nav-item"><a href="./tour.php" class="nav-link">Tour Packages</a></li>
+              <li class="nav-item"><a href="./gallery.php" class="nav-link">Gallery</a></li>
+              <li class="nav-item"><a href="./bus.php" class="nav-link">Bus</a></li>
+              <li class="nav-item"><a href="./contact.php" class="nav-link">Contact</a></li>
               
             </ul>
           </div>
@@ -73,7 +73,7 @@ include('includes/config.php');
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
           <div class="col-md-9 text-center " data-scrollax=" properties: { translateY: '70%' }">
-            <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span>About</span></p>
+            <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.php">Home</a></span> <span>About</span></p>
             <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">About Us</h1>
           </div>
         </div>
@@ -236,7 +236,7 @@ include('includes/config.php');
               <div class="row mb-5">
                 <div class="col-md">
                   <div class="ftco-footer-widget mb-4">
-              <a href="./index.html" class="logo navbar-brand"><img src="./assets/img/logo.png" alt="Logo" style="width:70%;height:100%;"></a>
+              <a href="./index.php" class="logo navbar-brand"><img src="./assets/img/logo.png" alt="Logo" style="width:70%;height:100%;"></a>
                     <p>If you are looking for a reliable tour operator in Kerala “CityLight Travels” is the right choice for you.Travel to Kerala with CityLight Travels and enjoy a perfect Holiday.</p>
                     <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                       <li class=""><a href="#"><span class="icon-twitter"></span></a></li>
@@ -249,13 +249,13 @@ include('includes/config.php');
                   <div class="ftco-footer-widget mb-4 ml-md-5">
                     <h2 class="ftco-heading-2">Useful Links</h2>
                     <ul class="list-unstyled">
-              <li><a href="./index.html" class="py-2 d-block">Home</a></li>
-                      <li><a href="./about.html" class="py-2 d-block">About</a></li>
-                      <li><a href="./services.html" class="py-2 d-block">Services</a></li>
-                      <li><a href="./tour.html" class="py-2 d-block">Tour packages</a></li>
-                      <li><a href="./gallery.html" class="py-2 d-block">Gallery</a></li>
-                      <li><a href="./bus.html" class="py-2 d-block">Buses</a></li>
-                      <li><a href="./contact.html" class="py-2 d-block">Contact</a></li>
+              <li><a href="./index.php" class="py-2 d-block">Home</a></li>
+                      <li><a href="./about.php" class="py-2 d-block">About</a></li>
+                      <li><a href="./services.php" class="py-2 d-block">Services</a></li>
+                      <li><a href="./tour.php" class="py-2 d-block">Tour packages</a></li>
+                      <li><a href="./gallery.php" class="py-2 d-block">Gallery</a></li>
+                      <li><a href="./bus.php" class="py-2 d-block">Buses</a></li>
+                      <li><a href="./contact.php" class="py-2 d-block">Contact</a></li>
                     </ul>
                   </div>
                 </div>
@@ -263,12 +263,12 @@ include('includes/config.php');
                    <div class="ftco-footer-widget mb-4">
                     <h2 class="ftco-heading-2">Services</h2>
                     <ul class="list-unstyled">
-                      <li><a href="./services.html" class="py-2 d-block">Holiday Package</a></li>
-                      <li><a href="./services.html" class="py-2 d-block">Bus Services</a></li>
-                      <li><a href="./services.html" class="py-2 d-block">Convenient Payment Method</a></li>
-                      <li><a href="./services.html" class="py-2 d-block">Airline Tickets</a></li>
-                      <li><a href="./services.html" class="py-2 d-block">Document Attestation</a></li>
-              <li><a href="./services.html" class="py-2 d-block">Visa Services</a></li>
+                      <li><a href="./services.php" class="py-2 d-block">Holiday Package</a></li>
+                      <li><a href="./services.php" class="py-2 d-block">Bus Services</a></li>
+                      <li><a href="./services.php" class="py-2 d-block">Convenient Payment Method</a></li>
+                      <li><a href="./services.php" class="py-2 d-block">Airline Tickets</a></li>
+                      <li><a href="./services.php" class="py-2 d-block">Document Attestation</a></li>
+              <li><a href="./services.php" class="py-2 d-block">Visa Services</a></li>
                     </ul>
                   </div>
                 </div>

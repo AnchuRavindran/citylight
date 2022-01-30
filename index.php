@@ -48,7 +48,7 @@ include('includes/config.php');
 <section id="header">
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar  ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a href="./index.html" class="logo navbar-brand" id="nava" ><img  id="navlogo" src="./assets/img/logo.png" alt="Logo"></a>
+        <a href="./index.php" class="logo navbar-brand" id="nava" ><img  id="navlogo" src="./assets/img/logo.png" alt="Logo"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="oi oi-menu"></span> Menu
       </button>
@@ -57,11 +57,11 @@ include('includes/config.php');
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active"><a href="./index.php" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="./about.php" class="nav-link">About</a></li>
-		  <li class="nav-item"><a href="./services.html" class="nav-link">Services</a></li>
-          <li class="nav-item"><a href="./tour.html" class="nav-link">Tour Packages</a></li>
-          <li class="nav-item"><a href="./gallery.html" class="nav-link">Gallery</a></li>
-          <li class="nav-item"><a href="./bus.html" class="nav-link">Bus</a></li>
-          <li class="nav-item"><a href="./contact.html" class="nav-link">Contact</a></li>
+		  <li class="nav-item"><a href="./services.php" class="nav-link">Services</a></li>
+          <li class="nav-item"><a href="./tour.php" class="nav-link">Tour Packages</a></li>
+          <li class="nav-item"><a href="./gallery.php" class="nav-link">Gallery</a></li>
+          <li class="nav-item"><a href="./bus.php" class="nav-link">Bus</a></li>
+          <li class="nav-item"><a href="./contact.php" class="nav-link">Contact</a></li>
           
         </ul>
       </div>
@@ -147,7 +147,7 @@ include('includes/config.php');
 					
 	  
 			  <div class="row" >
-	  
+
 			   
 	
 				<div  class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="200">
@@ -203,52 +203,57 @@ include('includes/config.php');
 	  
 		  </section><!-- End service Section -->
 
+
       <section id="destination">
-        <div class="popular_destination_area">
-              <div class="container">
-                  <div class="row justify-content-center">
-              <div class="container">
-                <div class="row justify-content-start mb-5 pb-3">
-              <div class="col-md-7 heading-section  ">
-               
-              <h2 class="mb-4"><strong>Popular</strong> Destination</h2>
-              </div>
-            </div>    		
+	<div class="popular_destination_area">
+        <div class="container">
+            <div class="row justify-content-center">
+				<div class="container">
+					<div class="row justify-content-start mb-5 pb-3">
+			  <div class="col-md-7 heading-section ">
+				 
+				<h2 class="mb-4"><strong>Popular</strong> Destination</h2>
+			  </div>
+			</div>    		
+			</div>
             </div>
-                  </div>
-                  <?php $sql = "SELECT * from tbldestination order by rand() ";
-                  $query = $dbh->prepare($sql);
-                  $query->execute();
-                  $results=$query->fetchAll(PDO::FETCH_OBJ);
-                  $cnt=1;
-                  if($query->rowCount() > 0)
-                  {
-                  foreach($results as $result)
-                  {	?>
-                  <div class="row">
-                
 
-                      <div class="col-lg-4 col-md-6">
-                          <div class="single_destination">
-                              <div class="thumb">
-                                  <img src="admin/destintionimages/<?php echo htmlentities($result->DestinationImage);?>" alt="">
-                              </div>
-                              <div class="content">
-                                  <p class="d-flex align-items-center"><?php echo htmlentities($result->DestinationName);?> <a href="travel_destination.html">  <?php echo htmlentities($result->DestinationPlaces);?></a> </p>
-                                  
-                              </div>
-                          </div>
-                      </div>
-        
+            <div class="row">
+              <?php $sql = "SELECT * from tbldestination order by rand() ";
+              $query = $dbh->prepare($sql);
+              $query->execute();
+              $results=$query->fetchAll(PDO::FETCH_OBJ);
+              $cnt=1;
+              if($query->rowCount() > 0)
+              {
+              foreach($results as $result)
+              {	?>
 
+                <div class="col-lg-4 col-md-6">
+                    <div class="single_destination">
+                        <div class="thumb">
+                            <img src="admin/destintionimages/<?php echo htmlentities($result->DestinationImage);?>" alt="">
+                        </div>
+                        <div class="content">
+                            <p class="d-flex align-items-center"><?php echo htmlentities($result->DestinationName);?> <a  href="#">  <?php echo htmlentities($result->DestinationPlaces);?> Places</a> </p>
+                            <div class="portfolio-links" id="portfolio-links">
+                               <a  href="admin/destintionimages/<?php echo htmlentities($result->DestinationImage);?>" data-gallery="portfolioGallery"  class="portfolio-lightbox preview-link" >	<span style="margin-left: 1em;" class="icon-search2"></span></a>
+         
+                             </div>
+                        </div>
+             
+                    </div>
+                </div>
 
-                      
-                  </div>
-                  <?php }} ?>
-              </div>
-          </div>
-        </section>
-          <!-- popular_destination_area_end  -->
+             
+                <?php }} ?>
+
+              
+            </div>
+        </div>
+    </div>
+	</section>
+
     
 	<section id="values" class="values">
       <div class="container" data-aos="fade-up">
@@ -281,6 +286,13 @@ include('includes/config.php');
               <h3><?php echo htmlentities($result->PackageName);?></h3>
 			        <h6><?php echo htmlentities($result->PackageType);?></h6>
 			        <h6><?php echo htmlentities($result->PackageFetures);?></h6>
+              <!-- <div class="row" >
+                <div class="col-lg-12">
+                    <div class="more_place_btn text-center"  >
+                        <a id="more" class="boxed-btn4"  href="./tour.php">Book</a>
+                    </div>
+                </div>
+            </div> -->
               </div>
               </div>
 
@@ -292,7 +304,7 @@ include('includes/config.php');
 		<div class="row" >
                 <div class="col-lg-12">
                     <div class="more_place_btn text-center"  >
-                        <a id="more" class="boxed-btn4"  href="#">More Places</a>
+                        <a id="more" class="boxed-btn4"  href="./tour.php">More Places</a>
                     </div>
                 </div>
             </div>
@@ -365,7 +377,7 @@ include('includes/config.php');
             <h2 class="mb-4 pb-3"><strong>Why</strong> Choose Us?</h2>
             <p>If you are looking for a reliable tour operator in Kerala “CityLight Travels” is the right choice for you.Here are some reasons why:</p>
             <p>Experience and Trustworthiness,Friendly and Qualified Stuff,Best Price, no Hidden Fees,The Variety of Tours and Programs...</p>
-            <p><a href="./about.html#features" class="btn btn-primary btn-outline-primary mt-4 px-4 py-3">Read more</a></p>
+            <p><a href="./about.php#features" class="btn btn-primary btn-outline-primary mt-4 px-4 py-3">Read more</a></p>
           </div>
 					<div class="col-md-1"></div>
           <div class="col-md-6 heading-section ">
@@ -431,7 +443,7 @@ include('includes/config.php');
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-				<a href="./index.html" class="logo navbar-brand"><img src="./assets/img/logo.png" alt="Logo" style="width:70%;height:100%;"></a>
+				<a href="./index.php" class="logo navbar-brand"><img src="./assets/img/logo.png" alt="Logo" style="width:70%;height:100%;"></a>
               <p>If you are looking for a reliable tour operator in Kerala “CityLight Travels” is the right choice for you.Travel to Kerala with CityLight Travels and enjoy a perfect Holiday.</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 <li class=""><a href="#"><span class="icon-twitter"></span></a></li>
@@ -444,13 +456,13 @@ include('includes/config.php');
             <div class="ftco-footer-widget mb-4 ml-md-5">
               <h2 class="ftco-heading-2">Useful Links</h2>
               <ul class="list-unstyled">
-				<li><a href="./index.html" class="py-2 d-block">Home</a></li>
-                <li><a href="./about.html" class="py-2 d-block">About</a></li>
-                <li><a href="./services.html" class="py-2 d-block">Services</a></li>
-                <li><a href="./tour.html" class="py-2 d-block">Tour packages</a></li>
-                <li><a href="./gallery.html" class="py-2 d-block">Gallery</a></li>
-                <li><a href="./bus.html" class="py-2 d-block">Buses</a></li>
-                <li><a href="./contact.html" class="py-2 d-block">Contact</a></li>
+				<li><a href="./index.php" class="py-2 d-block">Home</a></li>
+                <li><a href="./about.php" class="py-2 d-block">About</a></li>
+                <li><a href="./services.php" class="py-2 d-block">Services</a></li>
+                <li><a href="./tour.php" class="py-2 d-block">Tour packages</a></li>
+                <li><a href="./gallery.php" class="py-2 d-block">Gallery</a></li>
+                <li><a href="./bus.php" class="py-2 d-block">Buses</a></li>
+                <li><a href="./contact.php" class="py-2 d-block">Contact</a></li>
               </ul>
             </div>
           </div>
@@ -458,12 +470,12 @@ include('includes/config.php');
              <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">Services</h2>
               <ul class="list-unstyled">
-                <li><a href="./services.html" class="py-2 d-block">Holiday Package</a></li>
-                <li><a href="./services.html" class="py-2 d-block">Bus Services</a></li>
-                <li><a href="./services.html" class="py-2 d-block">Convenient Payment Method</a></li>
-                <li><a href="./services.html" class="py-2 d-block">Airline Tickets</a></li>
-                <li><a href="./services.html" class="py-2 d-block">Document Attestation</a></li>
-				<li><a href="./services.html" class="py-2 d-block">Visa Services</a></li>
+                <li><a href="./services.php" class="py-2 d-block">Holiday Package</a></li>
+                <li><a href="./services.php" class="py-2 d-block">Bus Services</a></li>
+                <li><a href="./services.php" class="py-2 d-block">Convenient Payment Method</a></li>
+                <li><a href="./services.php" class="py-2 d-block">Airline Tickets</a></li>
+                <li><a href="./services.php" class="py-2 d-block">Document Attestation</a></li>
+				<li><a href="./services.php" class="py-2 d-block">Visa Services</a></li>
               </ul>
             </div>
           </div>
