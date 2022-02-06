@@ -8,25 +8,22 @@ header('location:index.php');
 }
 else{ 
 	// code for cancel
-if(isset($_REQUEST['eid']))
+if(isset($_REQUEST['bid']))
 	{
-$eid=intval($_GET['eid']);
+$bid=intval($_GET['bid']);
 $status=1;
 
-$sql = "UPDATE tblenquiry SET Status=:status WHERE  id=:eid";
+$sql = "UPDATE tblbusbooking SET status=:status WHERE  id=:bid";
 $query = $dbh->prepare($sql);
 $query -> bindParam(':status',$status, PDO::PARAM_STR);
-$query-> bindParam(':eid',$eid, PDO::PARAM_STR);
+$query-> bindParam(':bid',$bid, PDO::PARAM_STR);
 $query -> execute();
 
 $msg="Enquiry  successfully read";
 }
 
+?>
 
-
-
-
-	?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -102,7 +99,7 @@ $msg="Enquiry  successfully read";
 				</div>
 <!--heder end here-->
 <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a><i class="fa fa-angle-right"></i>Manage Enquiries</li>
+                <li class="breadcrumb-item"><a href="index.php">Home</a><i class="fa fa-angle-right"></i>Manage BusBookins</li>
             </ol>
 <div class="agile-grids">	
 				<!-- tables -->
@@ -110,23 +107,25 @@ $msg="Enquiry  successfully read";
 				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 				<div class="agile-tables">
 					<div class="w3l-table-info">
-					  <h2>Manage Enquiries</h2>
+                    <h2>Manage Bus Bookings</h2>
 					    <table id="table">
 						<thead>
 						  <tr>
-						  <th>Ticket id</th>
+						  <th>Bus id</th>
 							<th>Name</th>
-							<th>Mobile No./ Email</th>
-							
-							<th>Subject </th>
-							<th>Description </th>
-							<th>Posting date </th>
-							<th>Action </th>
+							<th>Mobile No/Email</th>
+							<th>Country/State </th>
+							<th>Address</th>
+							<th>No of Bus</th>
+							<th>From </th>
+							<th>To</th>
+							<th>Type</th>
+							<th>Action </th>	
 							
 						  </tr>
 						</thead>
 						<tbody>
-<?php $sql = "SELECT * from tblenquiry";
+<?php $sql = "SELECT * from tblbusbooking";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -136,22 +135,22 @@ if($query->rowCount() > 0)
 foreach($results as $result)
 {				?>		
 						  <tr>
-							<td width="120">#TCKT-<?php echo htmlentities($result->id);?></td>
-							<td width="50"><?php echo htmlentities($result->FullName);?></td>
-								<td width="50"><?php echo htmlentities($result->MobileNumber);?> /<br />
-								<?php echo $result->EmailId;?></td>
-							
-						
-							<td width="200"><?php echo htmlentities($result->Subject);?></a></td>
-							<td width="400"><?php echo htmlentities($result->Description);?></td>
-							
-								<td width="50"><?php echo htmlentities($result->PostingDate);?></td>
-								<?php if($result->Status==1)
+                          <td  width="50"><?php echo htmlentities($result->id);?></td>
+							<td style=" word-wrap: break-word; word-break: break-all;" width="200"><?php echo htmlentities($result->Name);?></td>
+							<td width="50"><?php echo htmlentities($result->Phone);?><br><?php echo htmlentities($result->Mail);?></td>
+							<td width="50"><?php echo htmlentities($result->Country);?><br><?php echo htmlentities($result->State);?></td>
+							<td style=" word-wrap: break-word; word-break: break-all;" width="200"><?php echo htmlentities($result->Address);?></td>
+							<td width="50"><?php echo htmlentities($result->BusNumber);?></td>
+							<td style="width: 30em;" width="50"><?php echo htmlentities($result->FromDate);?></td>
+							<td style="width: 30em;" width="50"><?php echo htmlentities($result->ToDate);?></td>
+							<td width="50"><?php echo htmlentities($result->BusType);?></td>
+								
+                                <?php if($result->status==1)
 {
 	?><td>Read</td>
 <?php } else {?>
 
-<td><a href="manage-enquires.php?eid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Do you really want to read')" >Pending</a>
+<td><a href="manage-busbookins.php?bid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Do you really want to read')" >Pending</a>
 </td>
 <?php } ?>
 </tr>

@@ -10,7 +10,7 @@ else{
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>TMS | Admin Dashboard</title>
+<title>Citylight Travels | Admin Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -39,38 +39,17 @@ else{
 <?php include('includes/header.php');?>
 <!--header end here-->
 		<ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a> <i class="fa fa-angle-right"></i></li>
+                <li class="breadcrumb-item"><a href="index.php">Home</a> <i class="fa fa-angle-right"></i></li>
             </ol>
-<!--four-grids here-->
-		<div class="four-grids">
-					<div class="col-md-3 four-grid">
-						<div class="four-agileits">
-							<div class="icon">
-								<i class="glyphicon glyphicon-user" aria-hidden="true"></i>
-							</div>
-							<div class="four-text">
-								<h3>User</h3>
 
-								<?php $sql = "SELECT id from tblusers";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=$query->rowCount();
-					?>			<h4> <?php echo htmlentities($cnt);?> </h4>
-				
-								
-							</div>
-							
-						</div>
-					</div>
 					<div class="col-md-3 four-grid">
 						<div class="four-agileinfo">
 							<div class="icon">
 								<i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i>
 							</div>
 							<div class="four-text">
-								<h3>Bookings</h3>
-										<?php $sql1 = "SELECT BookingId from tblbooking";
+								<h3>Tour Bookings</h3>
+										<?php $sql1 = "SELECT id from tbltourbooking";
 $query1 = $dbh -> prepare($sql1);
 $query1->execute();
 $results1=$query1->fetchAll(PDO::FETCH_OBJ);
@@ -83,13 +62,35 @@ $cnt1=$query1->rowCount();
 						</div>
 					</div>
 					<div class="col-md-3 four-grid">
+						<div class="four-agileits">
+							<div class="icon">
+								<i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i>
+							</div>
+							<div class="four-text">
+								<h3>Bus Bookings</h3>
+										<?php $sql1 = "SELECT id from tblbusbooking";
+$query1 = $dbh -> prepare($sql1);
+$query1->execute();
+$results1=$query1->fetchAll(PDO::FETCH_OBJ);
+$cnt1=$query1->rowCount();
+					?>
+								<h4><?php echo htmlentities($cnt1);?></h4>
+
+							</div>
+							
+						</div>
+					</div>
+
+
+
+					<div class="col-md-3 four-grid">
 						<div class="four-w3ls">
 							<div class="icon">
 								<i class="glyphicon glyphicon-folder-open" aria-hidden="true"></i>
 							</div>
 							<div class="four-text">
-								<h3>Enquiries</h3>
-												<?php $sql2 = "SELECT id from tblenquiry";
+								<h3>Buses</h3>
+												<?php $sql2 = "SELECT Busid from tblbuses";
 $query2= $dbh -> prepare($sql2);
 $query2->execute();
 $results2=$query2->fetchAll(PDO::FETCH_OBJ);
@@ -101,6 +102,7 @@ $cnt2=$query2->rowCount();
 							
 						</div>
 					</div>
+					
 					<div class="col-md-3 four-grid">
 						<div class="four-wthree">
 							<div class="icon">
@@ -108,7 +110,7 @@ $cnt2=$query2->rowCount();
 							</div>
 							<div class="four-text">
 								<h3>Toatal packages</h3>
-																	<?php $sql3 = "SELECT PackageId from tbltourpackages";
+<?php $sql3 = "SELECT PackageId from tbltourpackages";
 $query3= $dbh -> prepare($sql3);
 $query3->execute();
 $results3=$query3->fetchAll(PDO::FETCH_OBJ);
@@ -123,30 +125,6 @@ $cnt3=$query3->rowCount();
 						<div class="clearfix"></div>
 				</div>
 
-		<div class="four-grids">
-					<div class="col-md-3 four-grid">
-						<div class="four-w3ls">
-							<div class="icon">
-								<i class="glyphicon glyphicon-folder-open" aria-hidden="true"></i>
-							</div>
-							<div class="four-text">
-								<h3>Issues Riaised</h3>
-												<?php $sql5 = "SELECT id from tblissues";
-$query5= $dbh -> prepare($sql5);
-$query5->execute();
-$results5=$query5->fetchAll(PDO::FETCH_OBJ);
-$cnt5=$query5->rowCount();
-					?>
-								<h4><?php echo htmlentities($cnt5);?></h4>
-								
-							</div>
-							
-						</div>
-					</div>
-
-
-					<div class="clearfix"></div>
-				</div>
 <!--//four-grids here-->
 
 

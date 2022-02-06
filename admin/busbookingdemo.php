@@ -13,7 +13,7 @@ if(isset($_REQUEST['eid']))
 $eid=intval($_GET['eid']);
 $status=1;
 
-$sql = "UPDATE tblenquiry SET Status=:status WHERE  id=:eid";
+$sql = "UPDATE tblbusbooking SET Status=:status WHERE  id=:eid";
 $query = $dbh->prepare($sql);
 $query -> bindParam(':status',$status, PDO::PARAM_STR);
 $query-> bindParam(':eid',$eid, PDO::PARAM_STR);
@@ -30,7 +30,7 @@ $msg="Enquiry  successfully read";
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>TMS | Admin manage Issues</title>
+<title>TMS | Admin manage Bookings</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -90,18 +90,6 @@ $msg="Enquiry  successfully read";
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
 }
 		</style>
-		<script language="javascript" type="text/javascript">
-var popUpWin=0;
-function popUpWindow(URLStr, left, top, width, height)
-{
- if(popUpWin)
-{
-if(!popUpWin.closed) popUpWin.close();
-}
-popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=yes,width='+600+',height='+600+',left='+left+', top='+top+',screenX='+left+',screenY='+top+'');
-}
-
-</script>
 </head> 
 <body>
    <div class="page-container">
@@ -114,7 +102,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 				</div>
 <!--heder end here-->
 <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a><i class="fa fa-angle-right"></i>Manage Issues</li>
+                <li class="breadcrumb-item"><a href="index.php">Home</a><i class="fa fa-angle-right"></i>Manage BusBookins</li>
             </ol>
 <div class="agile-grids">	
 				<!-- tables -->
@@ -122,23 +110,25 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 				<div class="agile-tables">
 					<div class="w3l-table-info">
-					  <h2>Manage Issues</h2>
+                    <h2>Manage Bus Bookings</h2>
 					    <table id="table">
 						<thead>
 						  <tr>
-						  <th>#</th>
+						  <th>Bus id</th>
 							<th>Name</th>
-							<th>Mobile No.</th>
-							<th>Email Id</th>
-							<th>Issues </th>
-							<th>Description </th>
-							<th>Posting date </th>
-							<th>Action </th>
+							<th>Mobile No/Email</th>
+							<th>Country/State </th>
+							<th>Address</th>
+							<th>No of Bus</th>
+							<th>From </th>
+							<th>To</th>
+							<th>Type</th>
+							<th>Action </th>	
 							
 						  </tr>
 						</thead>
 						<tbody>
-<?php $sql = "SELECT tblissues.id as id,tblusers.FullName as fname,tblusers.MobileNumber as mnumber,tblusers.EmailId as email,tblissues.Issue as issue,tblissues.Description as Description,tblissues.PostingDate as PostingDate from tblissues join tblusers on tblusers.EmailId=tblissues.UserEmail";
+<?php $sql = "SELECT * from tblbusbooking";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -148,20 +138,24 @@ if($query->rowCount() > 0)
 foreach($results as $result)
 {				?>		
 						  <tr>
-							<td width="120">#00<?php echo htmlentities($result->id);?></td>
-							<td width="50"><?php echo htmlentities($result->fname);?></td>
-								<td width="50"><?php echo htmlentities($result->mnumber);?></td>
-							<td width="50"><?php echo htmlentities($result->email);?></td>
-						
-							<td width="200"><?php echo htmlentities($result->issue);?></a></td>
-							<td width="400"><?php echo htmlentities($result->Description);?></td>
-							
-								<td width="50"><?php echo htmlentities($result->PostingDate);?></td>
-			
+                          <td  width="50"><?php echo htmlentities($result->id);?></td>
+							<td style=" word-wrap: break-word; word-break: break-all;" width="200"><?php echo htmlentities($result->Name);?></td>
+							<td width="50"><?php echo htmlentities($result->Phone);?><br><?php echo htmlentities($result->Mail);?></td>
+							<td width="50"><?php echo htmlentities($result->Country);?><br><?php echo htmlentities($result->State);?></td>
+							<td style=" word-wrap: break-word; word-break: break-all;" width="200"><?php echo htmlentities($result->Address);?></td>
+							<td width="50"><?php echo htmlentities($result->BusNumber);?></td>
+							<td style="width: 30em;" width="50"><?php echo htmlentities($result->FromDate);?></td>
+							<td style="width: 30em;" width="50"><?php echo htmlentities($result->ToDate);?></td>
+							<td width="50"><?php echo htmlentities($result->BusType);?></td>
+								
+                                <?php if($result->Status==1)
+{
+	?><td>Read</td>
+<?php } else {?>
 
-<td><a href="javascript:void(0);" onClick="popUpWindow('updateissue.php?iid=<?php echo ($result->id);?>');">View </a>
+<td><a href="busbookingdemo.php?eid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Do you really want to read')" >Pending</a>
 </td>
-
+<?php } ?>
 </tr>
 						 <?php } }?>
 						</tbody>

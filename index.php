@@ -37,7 +37,7 @@ include('includes/config.php');
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/themify-icons.css">
     <link rel="stylesheet" href="css/nice-select.css">
-
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="css/gijgo.css">
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/slick.css">
@@ -219,6 +219,7 @@ include('includes/config.php');
             </div>
 
             <div class="row">
+              
               <?php $sql = "SELECT * from tbldestination order by rand() ";
               $query = $dbh->prepare($sql);
               $query->execute();
@@ -235,10 +236,10 @@ include('includes/config.php');
                             <img src="admin/destintionimages/<?php echo htmlentities($result->DestinationImage);?>" alt="">
                         </div>
                         <div class="content">
-                            <p class="d-flex align-items-center"><?php echo htmlentities($result->DestinationName);?> <a  href="#">  <?php echo htmlentities($result->DestinationPlaces);?> Places</a> </p>
+                            <p class="d-flex align-items-center"><?php echo htmlentities($result->DestinationName);?> <a  >  <?php echo htmlentities($result->DestinationPlaces);?> Places</a> </p>
                             <div class="portfolio-links" id="portfolio-links">
-                               <a  href="admin/destintionimages/<?php echo htmlentities($result->DestinationImage);?>" data-gallery="portfolioGallery"  class="portfolio-lightbox preview-link" >	<span style="margin-left: 1em;" class="icon-search2"></span></a>
-         
+                               <a href="destination-details.php?pkgid=<?php echo htmlentities($result->DestinationId);?>" data-gallery="portfolioGallery"  class="portfolio-lightbox preview-link" >	<span style="margin-left: 1em;" class="icon-search2"></span></a>
+                         
                              </div>
                         </div>
              
@@ -282,7 +283,7 @@ include('includes/config.php');
 
           <div class="col-lg-3" data-aos="fade-up" data-aos-delay="200">
             <div class="box">
-              <img src="admin/pacakgeimages/<?php echo htmlentities($result->PackageImage);?>" class="img-fluid" alt="">
+            <img src="admin/pacakgeimages/<?php echo htmlentities($result->PackageImage);?>" class="img-fluid" alt="">
               <h3><?php echo htmlentities($result->PackageName);?></h3>
 			        <h6><?php echo htmlentities($result->PackageType);?></h6>
 			        <h6><?php echo htmlentities($result->PackageFetures);?></h6>
@@ -519,7 +520,7 @@ include('includes/config.php');
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
-    
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <div class="staticblck">
     <a href="https://api.whatsapp.com/send?phone=++91  9048001100" target="new"><img id="whats"  src="./assets/img/whatsapp3.webp" alt=""></a>

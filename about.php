@@ -326,7 +326,9 @@ include('includes/config.php');
     <script src="js/jquery.validate.min.js"></script>
     <script src="js/mail-script.js"></script>
 
-
+    <div class="staticblck">
+    <a href="https://api.whatsapp.com/send?phone=++91  9048001100" target="new"><img id="whats"  src="./assets/img/whatsapp3.webp" alt=""></a>
+</div>
     
   </body>
 </html>

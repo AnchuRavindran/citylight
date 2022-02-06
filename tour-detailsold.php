@@ -2,6 +2,34 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
+if(isset($_POST['submit2']))
+{
+$pid=intval($_GET['pkgid']);
+$useremail=$_SESSION['login'];
+$fromdate=$_POST['fromdate'];
+$todate=$_POST['todate'];
+$comment=$_POST['comment'];
+$status=0;
+$sql="INSERT INTO tblbooking(PackageId,UserEmail,FromDate,ToDate,Comment,status) VALUES(:pid,:useremail,:fromdate,:todate,:comment,:status)";
+$query = $dbh->prepare($sql);
+$query->bindParam(':pid',$pid,PDO::PARAM_STR);
+$query->bindParam(':useremail',$useremail,PDO::PARAM_STR);
+$query->bindParam(':fromdate',$fromdate,PDO::PARAM_STR);
+$query->bindParam(':todate',$todate,PDO::PARAM_STR);
+$query->bindParam(':comment',$comment,PDO::PARAM_STR);
+$query->bindParam(':status',$status,PDO::PARAM_STR);
+$query->execute();
+$lastInsertId = $dbh->lastInsertId();
+if($lastInsertId)
+{
+$msg="Booked Successfully";
+}
+else 
+{
+$error="Something went wrong. Please try again";
+}
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,6 +59,66 @@ include('includes/config.php');
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="./assets/css/style.css">
+
+	<script type="applijewelleryion/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- Custom Theme files -->
+<script src="js/jquery-1.12.0.min.js"></script>
+
+<!--animate-->
+
+<script src="js/wow.min.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css" />
+	<script>
+		 new WOW().init();
+	</script>
+<script src="js/jquery-ui.js"></script>
+					<script>
+						$(function() {
+						$( "#datepicker,#datepicker1" ).datepicker();
+						});
+					</script>
+	  <style>
+		.errorWrap {
+    padding: 10px;
+    margin: 0 0 20px 0;
+    background: #fff;
+    border-left: 4px solid #dd3d36;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+}
+.succWrap{
+    padding: 10px;
+    margin: 0 0 20px 0;
+    background: #fff;
+    border-left: 4px solid #5cb85c;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+}
+#pacimg{
+
+  
+    display: block;
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+    border: 0;
+    border-style: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+		</style>	
   </head>
   <body>
     
@@ -70,58 +158,80 @@ include('includes/config.php');
       </div>
     </div>
 
-
-
-
-
-        	<section id="values" class="values">
-            <div class="container" data-aos="fade-up">
-              
-              <div class="row" >
-                <?php $sql = "SELECT * from tbltourpackages order by rand() ";
-                $query = $dbh->prepare($sql);
-                $query->execute();
-                $results=$query->fetchAll(PDO::FETCH_OBJ);
-                $cnt=1;
-                if($query->rowCount() > 0)
-                {
-                foreach($results as $result)
-                {	?>
-      
-                <div class="col-lg-3" data-aos="fade-up" data-aos-delay="200" id="row">
-                  <div class="box">
-                    <img src="admin/pacakgeimages/<?php echo htmlentities($result->PackageImage);?>" class="img-fluid" alt="">
-                    <h3><?php echo htmlentities($result->PackageName);?></h3>
-                    <h6><?php echo htmlentities($result->PackageType);?></h6>
-                    <h6><?php echo htmlentities($result->PackageFetures);?></h6>
-                    <div class="row" >
-                      <div class="col-lg-12">
-                          <div class="more_place_btn text-center"  >
-                          <a id="more" class="boxed-btn4" href="tourdetails.php?pkgid=<?php echo htmlentities($result->PackageId);?>" class="view">Book</a>
-                           
-                          </div>
-                      </div>
-                  </div>
-                    </div>
-                    </div>
-      
-                <?php }} ?>
-      
-              </div>
-          
-      
-        
-      
-            </div>
-      
-          </section><!-- End Values Section -->
-      
-
-
-
-        </div>
+    </div>
       </div>
     </section> <!-- .section -->
+
+
+
+	
+
+<!--- selectroom ---->
+<div class="selectroom">
+	<div class="container">	
+		  <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
+				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
+<?php 
+$pid=intval($_GET['pkgid']);
+$sql = "SELECT * from tbltourpackages where PackageId=:pid";
+$query = $dbh->prepare($sql);
+$query -> bindParam(':pid', $pid, PDO::PARAM_STR);
+$query->execute();
+$results=$query->fetchAll(PDO::FETCH_OBJ);
+$cnt=1;
+if($query->rowCount() > 0)
+{
+foreach($results as $result)
+{	?>
+
+<form name="book" method="post">
+		<div class="selectroom_top">
+			<div class="col-md-4 selectroom_left wow fadeInLeft animated" data-wow-delay=".5s">
+				<img id="pacimg" src="admin/pacakgeimages/<?php echo htmlentities($result->PackageImage);?>" class="img-responsive" alt="">
+			</div>
+			<div class="col-md-8 selectroom_right wow fadeInRight animated" data-wow-delay=".5s">
+				<h2><?php echo htmlentities($result->PackageName);?></h2>
+				<p class="dow">#PKG-<?php echo htmlentities($result->PackageId);?></p>
+				<p><b>Package Type :</b> <?php echo htmlentities($result->PackageType);?></p>
+				<p><b>Package Location :</b> <?php echo htmlentities($result->PackageLocation);?></p>
+					<p><b>Features</b> <?php echo htmlentities($result->PackageFetures);?></p>
+	
+			</div>
+		<h3>Package Details</h3>
+				<p style="padding-top: 1%"><?php echo htmlentities($result->PackageDetails);?> </p>	
+				<div class="clearfix"></div>
+		</div>
+		<div class="selectroom_top">
+			<h2>Travels</h2>
+			<div class="selectroom-info animated wow fadeInUp animated" data-wow-duration="1200ms" data-wow-delay="500ms" style="visibility: visible; animation-duration: 1200ms; animation-delay: 500ms; animation-name: fadeInUp; margin-top: -70px">
+				<ul>
+				
+					<li class="spe">
+						<label class="inputLabel">Comment</label>
+						<input class="special" type="text" name="comment" required="">
+					</li>
+					<?php if($_SESSION['login'])
+					{?>
+						<li class="spe" align="center">
+					<button type="submit" name="submit2" class="btn-primary btn">Book</button>
+						</li>
+						<?php } else {?>
+							<li class="sigi" align="center" style="margin-top: 1%">
+							<a href="./tourbookform.php" data-toggle="modal" data-target="#myModal4" class="btn-primary btn" > Book</a></li>
+							<?php } ?>
+					<div class="clearfix"></div>
+				</ul>
+			</div>
+			
+		</div>
+		</form>
+<?php }} ?>
+
+
+	</div>
+</div>
+<!--- /selectroom ---->
+
 
     <section id="footer">
     <footer class="ftco-footer ftco-bg-dark ftco-section">
@@ -206,9 +316,7 @@ include('includes/config.php');
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
-  <div class="staticblck">
-    <a href="https://api.whatsapp.com/send?phone=++91  9048001100" target="new"><img id="whats"  src="./assets/img/whatsapp3.webp" alt=""></a>
-</div>
+    
   </body>
 </html>
 

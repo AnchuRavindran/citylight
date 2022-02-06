@@ -74,7 +74,7 @@ else{
 				</div>
 <!--heder end here-->
 <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a><i class="fa fa-angle-right"></i>Manage Destination</li>
+                <li class="breadcrumb-item"><a href="index.php">Home</a><i class="fa fa-angle-right"></i>Manage Destination</li>
             </ol>
 <div class="agile-grids">	
 				<!-- tables -->
@@ -110,7 +110,7 @@ foreach($results as $result)
 							<td><?php echo htmlentities($result->DestinationPlaces);?></td>
 							<td><?php echo htmlentities($result->DestinationDes);?></td>
 							<td><?php echo htmlentities($result->DestinationImage);?></td>
-							<td><a href="update-destination.php?did=<?php echo htmlentities($result->DestinationId);?>"><button type="button" class="btn btn-primary btn-block">Update</button></a></td>
+							<td><a href="update-destination.php?did=<?php echo htmlentities($result->DestinationId);?>"><button  style="width: auto;height: auto;" type="button" class="btn btn-primary btn-block">Update</button></a></td>
 						  </tr>
 						 <?php $cnt=$cnt+1;} }?>
 						</tbody>

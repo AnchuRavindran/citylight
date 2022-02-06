@@ -2,6 +2,7 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
+
 if(strlen($_SESSION['alogin'])==0)
 	{	
 header('location:index.php');
@@ -74,7 +75,7 @@ else{
 				</div>
 <!--heder end here-->
 <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a><i class="fa fa-angle-right"></i>Manage Packages</li>
+                <li class="breadcrumb-item"><a href="index.php">Home</a><i class="fa fa-angle-right"></i>Manage Packages</li>
             </ol>
 <div class="agile-grids">	
 				<!-- tables -->
@@ -86,6 +87,7 @@ else{
 						<thead>
 						  <tr>
 						  <th>#</th>
+						  <th>PackageId</th>
 							<th >Name</th>
 							<th>Type</th>
 							<th>Location</th>
@@ -107,13 +109,15 @@ foreach($results as $result)
 {				?>		
 						  <tr>
 							<td><?php echo htmlentities($cnt);?></td>
+							<td><?php echo htmlentities($result->PackageId);?></td>
 							<td><?php echo htmlentities($result->PackageName);?></td>
 							<td><?php echo htmlentities($result->PackageType);?></td>
 							<td><?php echo htmlentities($result->PackageLocation);?></td>
 							<td>$<?php echo htmlentities($result->PackagePrice);?></td>
 							<td><?php echo htmlentities($result->Creationdate);?></td>
-							<td><a href="update-package.php?pid=<?php echo htmlentities($result->PackageId);?>"><button type="button" class="btn btn-primary btn-block">View Details</button></a></td>
-						  </tr>
+							<td><a href="update-package.php?pid=<?php echo htmlentities($result->PackageId);?>"><button  style="width: auto;height: auto;" type="button" class="btn btn-primary btn-block">View Details</button></a></td>
+					<td>	</td>
+						</tr>
 						 <?php $cnt=$cnt+1;} }?>
 						</tbody>
 					  </table>

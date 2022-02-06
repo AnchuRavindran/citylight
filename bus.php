@@ -31,6 +31,13 @@ include('includes/config.php');
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="./assets/css/style.css">
+    
+
+
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  
   </head>
   <body>
     
@@ -63,65 +70,59 @@ include('includes/config.php');
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
           <div class="col-md-9  text-center" data-scrollax=" properties: { translateY: '70%' }">
-            <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.php">Home</a></span> <span>Tour</span></p>
-            <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Tour Packages</h1>
+            <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.php">Home</a></span> <span>Bus</span></p>
+            <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Buses</h1>
           </div>
         </div>
       </div>
     </div>
 
-
-
-
-
-        	<section id="values" class="values">
-            <div class="container" data-aos="fade-up">
-              
-              <div class="row" >
-                <?php $sql = "SELECT * from tbltourpackages order by rand() ";
-                $query = $dbh->prepare($sql);
-                $query->execute();
-                $results=$query->fetchAll(PDO::FETCH_OBJ);
-                $cnt=1;
-                if($query->rowCount() > 0)
-                {
-                foreach($results as $result)
-                {	?>
-      
-                <div class="col-lg-3" data-aos="fade-up" data-aos-delay="200" id="row">
-                  <div class="box">
-                    <img src="admin/pacakgeimages/<?php echo htmlentities($result->PackageImage);?>" class="img-fluid" alt="">
-                    <h3><?php echo htmlentities($result->PackageName);?></h3>
-                    <h6><?php echo htmlentities($result->PackageType);?></h6>
-                    <h6><?php echo htmlentities($result->PackageFetures);?></h6>
-                    <div class="row" >
-                      <div class="col-lg-12">
-                          <div class="more_place_btn text-center"  >
-                          <a id="more" class="boxed-btn4" href="tourdetails.php?pkgid=<?php echo htmlentities($result->PackageId);?>" class="view">Book</a>
-                           
-                          </div>
-                      </div>
-                  </div>
-                    </div>
-                    </div>
-      
-                <?php }} ?>
-      
-              </div>
-          
-      
-        
-      
-            </div>
-      
-          </section><!-- End Values Section -->
-      
-
-
-
         </div>
       </div>
     </section> <!-- .section -->
+
+
+    <section id="portfolio" class="portfolio">
+  <div class="container" data-aos="fade-up">
+ 
+
+    
+    <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200" style="word-wrap: break-word;">
+   
+
+      <?php $sql = "SELECT * from tblbuses order by rand() ";
+      $query = $dbh->prepare($sql);
+      $query->execute();
+      $results=$query->fetchAll(PDO::FETCH_OBJ);
+      $cnt=1;
+      if($query->rowCount() > 0)
+      {
+      foreach($results as $result)
+      {	?>
+
+      <div class="col-lg-4 col-md-6 portfolio-item filter-sd" style="margin-top:5%;">
+      <div class="portfolio-wrap">
+        <img id="portimg" src="admin/busimages/<?php echo htmlentities($result->BusImage);?>" alt="" class="img-fluid">
+        <div class="portfolio-info">
+          <h4><?php echo htmlentities($result->BusName);?></h4>
+          <div class="portfolio-links" id="portfolio-links">
+          <a href="bus-details.php?pkgid=<?php echo htmlentities($result->BusId);?>" >BOOK</a>
+        </div>
+        </div>
+      </div>
+      </div>
+
+      <?php }} ?>
+
+
+
+      
+       
+    </div>
+
+  </div>
+</section><!-- End Portfolio Section -->
+
 
     <section id="footer">
     <footer class="ftco-footer ftco-bg-dark ftco-section">
@@ -187,7 +188,9 @@ include('includes/config.php');
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
-
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
   <script src="js/popper.min.js"></script>

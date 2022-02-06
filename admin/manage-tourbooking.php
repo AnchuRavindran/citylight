@@ -7,25 +7,35 @@ if(strlen($_SESSION['alogin'])==0)
 header('location:index.php');
 }
 else{ 
-	?>
+	// code for cancel
+if(isset($_REQUEST['pid']))
+	{
+$pid=intval($_GET['pid']);
+$status=1;
+
+$sql = "UPDATE tbltourbooking SET status=:status WHERE  id=:pid";
+$query = $dbh->prepare($sql);
+$query -> bindParam(':status',$status, PDO::PARAM_STR);
+$query-> bindParam(':pid',$pid, PDO::PARAM_STR);
+$query -> execute();
+
+$msg="Enquiry  successfully read";
+
+}
+?>
+
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>TMS | Admin manage Users</title>
+<title>CityLight Travels | Admin manage Bookings</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
-<!-- Custom CSS -->
 <link href="css/style.css" rel='stylesheet' type='text/css' />
 <link rel="stylesheet" href="css/morris.css" type="text/css"/>
-<!-- Graph CSS -->
 <link href="css/font-awesome.css" rel="stylesheet"> 
-<!-- jQuery -->
 <script src="js/jquery-2.1.4.min.js"></script>
-<!-- //jQuery -->
-<!-- tables -->
 <link rel="stylesheet" type="text/css" href="css/table-style.css" />
 <link rel="stylesheet" type="text/css" href="css/basictable.css" />
 <script type="text/javascript" src="js/jquery.basictable.min.js"></script>
@@ -56,12 +66,27 @@ else{
       });
     });
 </script>
-<!-- //tables -->
 <link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'/>
 <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-<!-- lined-icons -->
 <link rel="stylesheet" href="css/icon-font.min.css" type='text/css' />
-<!-- //lined-icons -->
+  <style>
+		.errorWrap {
+    padding: 10px;
+    margin: 0 0 20px 0;
+    background: #fff;
+    border-left: 4px solid #dd3d36;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+}
+.succWrap{
+    padding: 10px;
+    margin: 0 0 20px 0;
+    background: #fff;
+    border-left: 4px solid #5cb85c;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+}
+		</style>
 </head> 
 <body>
    <div class="page-container">
@@ -74,44 +99,59 @@ else{
 				</div>
 <!--heder end here-->
 <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a><i class="fa fa-angle-right"></i>Manage Users</li>
+                <li class="breadcrumb-item"><a href="index.php">Home</a><i class="fa fa-angle-right"></i>Manage TourBookings</li>
             </ol>
 <div class="agile-grids">	
 				<!-- tables -->
-				
+				<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
+				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 				<div class="agile-tables">
 					<div class="w3l-table-info">
-					  <h2>Manage Users</h2>
+                    <h2>Manage Tour Bookings</h2>
 					    <table id="table">
 						<thead>
 						  <tr>
-						  <th>#</th>
+						  <th>Bus id</th>
 							<th>Name</th>
-							<th>Mobile No.</th>
-							<th>Email Id</th>
-							<th>RegDate </th>
-							<th>Updation Date</th>
+							<th>Mobile No/Email</th>
+							<th>Country/State </th>
+							<th>Address</th>
+							<th>Pincode</th>
+							<th>Adult/Childs</th>
+							<th>From </th>							
+							<th>Action </th>	
 						  </tr>
 						</thead>
 						<tbody>
-<?php $sql = "SELECT * from tblusers";
+<?php $sql = "SELECT * from tbltourbooking";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
+
 if($query->rowCount() > 0)
 {
 foreach($results as $result)
 {				?>		
 						  <tr>
-							<td><?php echo htmlentities($cnt);?></td>
-							<td><?php echo htmlentities($result->FullName);?></td>
-							<td><?php echo htmlentities($result->MobileNumber);?></td>
-							<td><?php echo htmlentities($result->EmailId);?></td>
-							<td><?php echo htmlentities($result->RegDate);?></td>
-							<td><?php echo htmlentities($result->UpdationDate);?></td>
-						  </tr>
-						 <?php $cnt=$cnt+1;} }?>
+                          <td  width="50"><?php echo htmlentities($result->id);?></td>
+							<td  width="200"><?php echo htmlentities($result->Name);?></td>
+							<td width="50"><?php echo htmlentities($result->Phone);?><br><?php echo htmlentities($result->Mail);?></td>
+							<td width="50"><?php echo htmlentities($result->Country);?><br><?php echo htmlentities($result->State);?></td>
+							<td style=" word-wrap: break-word; word-break: break-all;" width="200"><?php echo htmlentities($result->Address);?></td>
+							<td width="50"><?php echo htmlentities($result->Pincode);?></td>
+							<td width="50"><?php echo htmlentities($result->Adult);?>/<?php echo htmlentities($result->Child);?></td>
+							<td style="width: 30em;" width="50"><?php echo htmlentities($result->FromDate);?></td>
+							
+                                <?php if($result->status==1)
+{
+	?><td>Confirm</td>
+<?php } else {?>
+
+<td><a href="manage-tourbooking.php?pid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Do you really want to read')" >Pending</a>
+</td>
+<?php } ?>
+</tr>
+						 <?php } }?>
 						</tbody>
 					  </table>
 					</div>

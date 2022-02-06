@@ -9,28 +9,22 @@ header('location:index.php');
 else{
 if(isset($_POST['submit']))
 {
-$pname=$_POST['packagename'];
-$ptype=$_POST['packagetype'];	
-$plocation=$_POST['packagelocation'];
-$pprice=$_POST['packageprice'];	
-$pfeatures=$_POST['packagefeatures'];
-$pdetails=$_POST['packagedetails'];	
-$pimage=$_FILES["packageimage"]["name"];
-move_uploaded_file($_FILES["packageimage"]["tmp_name"],"pacakgeimages/".$_FILES["packageimage"]["name"]);
-$sql="INSERT INTO TblTourPackages(PackageName,PackageType,PackageLocation,PackagePrice,PackageFetures,PackageDetails,PackageImage) VALUES(:pname,:ptype,:plocation,:pprice,:pfeatures,:pdetails,:pimage)";
+$pname=$_POST['busname'];
+$pseat=$_POST['busseat'];	
+$pdetails=$_POST['busdetails'];	
+$pimage=$_FILES["busimage"]["name"];
+move_uploaded_file($_FILES["busimage"]["tmp_name"],"busimages/".$_FILES["busimage"]["name"]);
+$sql="INSERT INTO tblbuses(BusName,Busseat,BusDetails,BusImage) VALUES(:pname,:pseat,:pdetails,:pimage)";
 $query = $dbh->prepare($sql);
 $query->bindParam(':pname',$pname,PDO::PARAM_STR);
-$query->bindParam(':ptype',$ptype,PDO::PARAM_STR);
-$query->bindParam(':plocation',$plocation,PDO::PARAM_STR);
-$query->bindParam(':pprice',$pprice,PDO::PARAM_STR);
-$query->bindParam(':pfeatures',$pfeatures,PDO::PARAM_STR);
+$query->bindParam(':pseat',$pseat,PDO::PARAM_STR);
 $query->bindParam(':pdetails',$pdetails,PDO::PARAM_STR);
 $query->bindParam(':pimage',$pimage,PDO::PARAM_STR);
 $query->execute();
 $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId)
 {
-$msg="Package Created Successfully";
+$msg="Bus Created Successfully";
 }
 else 
 {
@@ -43,7 +37,7 @@ $error="Something went wrong. Please try again";
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>TMS | Admin Package Creation</title>
+<title>Citylight travels | Admin Bus Creation</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Pooled Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -89,64 +83,47 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 <!--heder end here-->
 	<ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a><i class="fa fa-angle-right"></i>Update Package </li>
+                <li class="breadcrumb-item"><a href="index.php">Home</a><i class="fa fa-angle-right"></i>Create Bus </li>
             </ol>
 		<!--grid-->
  	<div class="grid-form">
- 
+
 <!---->
   <div class="grid-form1">
-  	       <h3>Create Package</h3>
+  	       <h3>Create Bus</h3>
   	        	  <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
 				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
   	         <div class="tab-content">
 						<div class="tab-pane active" id="horizontal-form">
-							<form class="form-horizontal" name="package" method="post" enctype="multipart/form-data">
+							<form class="form-horizontal" name="bus" method="post" enctype="multipart/form-data">
 								<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Package Name</label>
+									<label for="focusedinput" class="col-sm-2 control-label">Bus Name</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control1" name="packagename" id="packagename" placeholder="Create Package" required>
-									</div>
-								</div>
-<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Package Type</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control1" name="packagetype" id="packagetype" placeholder=" Package Type eg- Family Package / Couple Package" required>
+										<input type="text" class="form-control1" name="busname" id="busname" placeholder="Create Bus" required>
 									</div>
 								</div>
 
+						
 <div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Package Location</label>
+									<label for="focusedinput" class="col-sm-2 control-label">Bus Seat</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control1" name="packagelocation" id="packagelocation" placeholder=" Package Location" required>
+									<input type="text" class="form-control1" name="busseat" id="busseat" placeholder="No of Seats"required>
+									
 									</div>
-								</div>
-
-<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Package Price in USD</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control1" name="packageprice" id="packageprice" placeholder=" Package Price is USD" required>
-									</div>
-								</div>
-
-<div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Package Features</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control1" name="packagefeatures" id="packagefeatures" placeholder="Package Features Eg-free Pickup-drop facility" required>
-									</div>
-								</div>		
+								</div>	
+				
 
 
 <div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Package Details</label>
+									<label for="focusedinput" class="col-sm-2 control-label">Bus Details</label>
 									<div class="col-sm-8">
-										<textarea class="form-control" rows="5" cols="50" name="packagedetails" id="packagedetails" placeholder="Package Details" required></textarea> 
+										<textarea class="form-control" rows="5" cols="50" name="busdetails" id="busdetails" placeholder="Bus Details" required></textarea> 
 									</div>
 								</div>															
 <div class="form-group">
-									<label for="focusedinput" class="col-sm-2 control-label">Package Image</label>
+									<label for="focusedinput" class="col-sm-2 control-label">Bus Image</label>
 									<div class="col-sm-8">
-										<input type="file" name="packageimage" id="packageimage" required>
+										<input type="file" name="busimage" id="busimage" required>
 									</div>
 								</div>	
 
