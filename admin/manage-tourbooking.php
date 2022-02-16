@@ -112,6 +112,7 @@ $msg="Enquiry  successfully read";
 						<thead>
 						  <tr>
 						  <th>Bus id</th>
+						  <th>Package id</th>
 							<th>Name</th>
 							<th>Mobile No/Email</th>
 							<th>Country/State </th>
@@ -134,6 +135,7 @@ foreach($results as $result)
 {				?>		
 						  <tr>
                           <td  width="50"><?php echo htmlentities($result->id);?></td>
+						  <td  width="50"><?php echo htmlentities($result->PackageId);?></td>
 							<td  width="200"><?php echo htmlentities($result->Name);?></td>
 							<td width="50"><?php echo htmlentities($result->Phone);?><br><?php echo htmlentities($result->Mail);?></td>
 							<td width="50"><?php echo htmlentities($result->Country);?><br><?php echo htmlentities($result->State);?></td>

@@ -521,7 +521,7 @@ include('includes/config.php');
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+  <script src="./assets/js/main.js"></script>
   <div class="staticblck">
     <a href="https://api.whatsapp.com/send?phone=++91  9048001100" target="new"><img id="whats"  src="./assets/img/whatsapp3.webp" alt=""></a>
 </div>

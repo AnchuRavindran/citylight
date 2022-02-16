@@ -102,7 +102,7 @@ foreach($results as $result)
               <div class="swiper-wrapper align-items-center">
 
                 <div class="swiper-slide" style="height:90vh;width: 50vh;">
-                  <img  src="admin/busimages/<?php echo htmlentities($result->PackageImage);?>" class="img-responsive" alt="">
+                  <img  src="admin/pacakgeimages/<?php echo htmlentities($result->PackageImage);?>" class="img-responsive" alt="">
                 </div>
 
                 <!-- <div class="swiper-slide">
@@ -140,7 +140,7 @@ foreach($results as $result)
               <div class="row" >
           <div class="col-lg-12">
               <div class="more_place_btn text-center"  >
-                  <a id="more" class="boxed-btn4"  href="./tourbookform.php">Book</a>
+                  <a id="more" class="boxed-btn4"  href="./tourbookform.php?pkgId=<?php echo $result->PackageId?>">Book</a>
               </div>
           </div>
       </div>
@@ -247,6 +247,7 @@ foreach($results as $result)
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
+  <script src="./assets/js/main.js"></script>
     
   </body>
 </html>

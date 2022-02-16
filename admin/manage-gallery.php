@@ -2,6 +2,13 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
+if(isset($_GET['deleteId'])) {
+	$sql = "DELETE from tblgallery WHERE GalleryId = :id";
+	$query = $dbh -> prepare($sql);
+	$query -> bindParam(":id", $_GET['deleteId']);
+	$query->execute();
+}
+
 if(strlen($_SESSION['alogin'])==0)
 	{	
 header('location:index.php');
@@ -107,7 +114,14 @@ foreach($results as $result)
 							<td><?php echo htmlentities($result->GalleryName);?></td>
 							<td><?php echo htmlentities($result->GalleryImage);?></td>
 							<td><a href="update-gallery.php?gid=<?php echo htmlentities($result->GalleryId);?>"><button type="button" class="btn btn-primary btn-block" style="width: auto;">Update</button></a></td>
-						  </tr>
+							<td><a href="manage-gallery.php?gid=<?php echo htmlentities($result->GalleryId);?>">
+								<form action="#" action="GET">
+									<input hidden type="text" value="<?php echo $result->GalleryId ?>" name="deleteId">
+									<button style="width: auto;height: auto;" type="submit" class="btn btn-primary btn-block">Delete</button>
+								</form>
+							</a></td>
+						
+						</tr>
 						 <?php $cnt=$cnt+1;} }?>
 						</tbody>
 					  </table>

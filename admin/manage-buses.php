@@ -2,6 +2,13 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
+
+if(isset($_GET['deleteId'])) {
+	$sql = "DELETE from tblbuses WHERE 	BusId  = :id";
+	$query = $dbh -> prepare($sql);
+	$query -> bindParam(":id", $_GET['deleteId']);
+	$query->execute();
+}
 if(strlen($_SESSION['alogin'])==0)
 	{	
 header('location:index.php');
@@ -112,7 +119,13 @@ foreach($results as $result)
 							<td><?php echo htmlentities($result->BusDetails);?></td>
 							<td><?php echo htmlentities($result->BusImage);?></td>
 							<td><a href="update-bus.php?bid=<?php echo htmlentities($result->BusId);?>"><button  style="width: auto;height: auto;" type="button" class="btn btn-primary btn-block">Update</button></a></td>
-						  </tr>
+							<td><a href="update-bus.php?bid=<?php echo htmlentities($result->BusId);?>">
+								<form action="#" action="GET">
+									<input hidden type="text" value="<?php echo $result->BusId ?>" name="deleteId">
+									<button style="width: auto;height: auto;" type="submit" class="btn btn-primary btn-block">Delete</button>
+								</form>
+							</a></td>
+						</tr>
 						 <?php $cnt=$cnt+1;} }?>
 						</tbody>
 					  </table>

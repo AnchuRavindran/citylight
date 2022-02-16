@@ -3,6 +3,13 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 
+if(isset($_GET['deleteId'])) {
+	$sql = "DELETE from tblTourPackages WHERE PackageId = :id";
+	$query = $dbh -> prepare($sql);
+	$query -> bindParam(":id", $_GET['deleteId']);
+	$query->execute();
+}
+
 if(strlen($_SESSION['alogin'])==0)
 	{	
 header('location:index.php');
@@ -115,7 +122,13 @@ foreach($results as $result)
 							<td><?php echo htmlentities($result->PackageLocation);?></td>
 							<td>$<?php echo htmlentities($result->PackagePrice);?></td>
 							<td><?php echo htmlentities($result->Creationdate);?></td>
-							<td><a href="update-package.php?pid=<?php echo htmlentities($result->PackageId);?>"><button  style="width: auto;height: auto;" type="button" class="btn btn-primary btn-block">View Details</button></a></td>
+							<td><a href="update-package.php?pid=<?php echo htmlentities($result->PackageId);?>"><button  style="width: auto;height: auto;" type="button" class="btn btn-primary btn-block">View</button></a></td>
+							<td><a href="manage-packages.php?pid=<?php echo htmlentities($result->PackageId);?>">
+								<form action="#" action="GET">
+									<input hidden type="text" value="<?php echo $result->PackageId ?>" name="deleteId">
+									<button style="width: auto;height: auto;" type="submit" class="btn btn-primary btn-block">Delete</button>
+								</form>
+							</a></td>
 					<td>	</td>
 						</tr>
 						 <?php $cnt=$cnt+1;} }?>
@@ -128,18 +141,26 @@ foreach($results as $result)
 			</div>
 <!-- script-for sticky-nav -->
 		<script>
-		$(document).ready(function() {
-			 var navoffeset=$(".header-main").offset().top;
-			 $(window).scroll(function(){
-				var scrollpos=$(window).scrollTop(); 
-				if(scrollpos >=navoffeset){
-					$(".header-main").addClass("fixed");
-				}else{
-					$(".header-main").removeClass("fixed");
+			$(document).ready(function() {
+				var navoffeset=$(".header-main").offset().top;
+				$(window).scroll(function(){
+					var scrollpos=$(window).scrollTop(); 
+					if(scrollpos >=navoffeset){
+						$(".header-main").addClass("fixed");
+					}else{
+						$(".header-main").removeClass("fixed");
+					}
+				});
+				
+			});
+			function deleteItem(deleteId) {
+				let xhttp = new XMLHttpRequest();
+				xhttp.onload = function() {
+					document.getElementById("demo").innerHTML = this.responseText;
 				}
-			 });
-			 
-		});
+				xhttp.open("GET", "manage-packages.php?deleteId=" + deleteId, true);
+				xhttp.send();
+			}
 		</script>
 		<!-- /script-for sticky-nav -->
 <!--inner block start here-->
